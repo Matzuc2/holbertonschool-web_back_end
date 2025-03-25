@@ -1,4 +1,4 @@
-import createEmployeesObject from './11-createEmployeesObject.js';
+import createEmployeesObject from './11-createEmployeesObject';
 import createReportObject from './12-createReportObject.js';
 
 const employees = {
