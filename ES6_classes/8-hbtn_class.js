@@ -1,14 +1,15 @@
-export default class HolbertonClass {
-  constructor(size, location) {
-    this._size = size;
-    this._location = location;
+class MathUtils {
+  static add(a, b) {
+      return a + b;
   }
 
-  valueOf() {
-    return this._size;
-  }
-
-  toString() {
-    return this._location;
+  static multiply(a, b) {
+      return a * b;
   }
 }
+
+// Calling static methods on the class
+// console.log(MathUtils.add(5, 3));
+// console.log(MathUtils.multiply(4, 6));
+const math = new MathUtils;
+console.log(math.add(1, 1));
