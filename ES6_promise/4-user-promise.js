@@ -1,6 +1,6 @@
 export default function signUpUser(firstName, lastName) {
-    let prom1 = new Promise((resolve, reject) => {
-        resolve({'firstName': firstName, 'lastName': lastName})
-    });
-    return prom1
+  const prom1 = new Promise((resolve) => {
+    resolve({ firstName, lastName });
+  });
+  return prom1;
 }
