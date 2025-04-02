@@ -10,9 +10,8 @@ export default async function handleProfileSignup(firstName, lastName, fileName)
     results.forEach(element => {
         y.push({
             status: element.status,
-            value: element.value || element.reason,
+            value: element.value || String(element.reason),
         });
     });
-
     return y
 }
