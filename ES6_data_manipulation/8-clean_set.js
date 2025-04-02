@@ -1,4 +1,7 @@
 export default function cleanSet(set1, string) {
+  if (!(set1 instanceof Set) || typeof string !== 'string') {
+    return '';
+  }
   const len = string.length;
   if (len === 0) {
     return '';
