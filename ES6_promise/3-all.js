@@ -4,8 +4,8 @@ export default function handleProfileSignup() {
   const prom1 = uploadPhoto();
   const prom2 = createUser();
 
-  Promise.all([prom1, prom2]).then((values) => {
-    console.log(values[0].body, values[1].firstName, values[1].lastName);
+  Promise.all([prom1, prom2]).then(([photo, user]) => {
+    console.log(photo.body, user.firstName, user.lastName);
   })
     .catch(() => {
       console.log('Signup system offline');
