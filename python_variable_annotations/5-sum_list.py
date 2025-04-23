@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-This module provides a function to compute the sum of a list of floating-point numbers.
+This module provides a function to compute the sum of a list of numbers.
 """
 
 from typing import List
