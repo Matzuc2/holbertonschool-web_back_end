@@ -20,12 +20,10 @@ async def wait_n(n: int, max_delay: int) -> List[float]:
         max_delay (int): The maximum delay for each `wait_random` coroutine.
 
     Returns:
-        List[float]: A list of delay values returned by the `wait_random` coroutines.
+        List[float]: A list of delay values returned by the coroutines.
     """
     delays: List[float] = []
     for i in range(n):
         new_one = await asyncio.gather(wait_random(max_delay))
         delays += new_one
     return delays
-
-
