@@ -1,12 +1,9 @@
-#!/usr/bin/env python3
-import asyncio
+import typing
+def greet() -> float:
+    a = 10.6
+    b = 2.9
+    return int(a + b)
 
-async def greet():
-    print("Hello...")
-    await asyncio.sleep(2)  # Simulates waiting (e.g. network call)
-    print("...World!")
-
-async def main():
-    await asyncio.gather(greet(), greet(), greet())  # All run "together"
-
-asyncio.run(main())
+x = greet()
+print(type(x))
+print(x)
