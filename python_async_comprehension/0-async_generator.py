@@ -5,9 +5,10 @@ This module contains asynchronous generator that yields random numbers.
 
 import random
 import asyncio
+from typing import AsyncGenerator
 
 
-async def async_generator():
+async def async_generator() -> AsyncGenerator[float, None]:
     """
     Asynchronously generates 10 random numbers between 0 and 10, one at a time.
 
