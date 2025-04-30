@@ -1,1 +1,2 @@
-db.school.updateMany({"name": 1}, {$addToSet :{"array": 2}})
+// script that updates all docs which have for name 'holberton school'
+db.school.updateMany({"name": "Holberton school"}, {$set :{"address": "972 Mission street"}})
