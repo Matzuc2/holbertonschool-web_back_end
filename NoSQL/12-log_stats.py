@@ -13,7 +13,7 @@ if __name__ == "__main__":
     logs_collection = client.logs.nginx
 
     # Count total number of log documents
-    count = logs_collection.count_documents({})  # Using count_documents instead of estimated_document_count
+    count = logs_collection.count_documents({})
 
     # Count documents for each HTTP method
     get_meth = logs_collection.count_documents({"method": "GET"})
@@ -27,11 +27,11 @@ if __name__ == "__main__":
         {"method": "GET", "path": "/status"})
 
     # Print statistics exactly as shown in the example
-    print(f"{count} logs")
+    print("{} logs".format(count))
     print("Methods:")
-    print(f"\tmethod GET: {get_meth}")
-    print(f"\tmethod POST: {post_meth}")
-    print(f"\tmethod PUT: {put_meth}")
-    print(f"\tmethod PATCH: {patch_meth}")
-    print(f"\tmethod DELETE: {del_meth}")
-    print(f"{status_path_get} status check")
+    print("\tmethod GET: {}".format(get_meth))
+    print("\tmethod POST: {}".format(post_meth))
+    print("\tmethod PUT: {}".format(put_meth))
+    print("\tmethod PATCH: {}".format(patch_meth))
+    print("\tmethod DELETE: {}".format(del_meth))
+    print("{} status check".format(status_path_get))
