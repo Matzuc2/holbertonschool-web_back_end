@@ -14,7 +14,7 @@ if __name__ == "__main__":
     logs_collection = client.logs.nginx
 
     # Count total number of log documents
-    count = logs_collection.count_documents()
+    count = logs_collection.estimated_document_count()
 
     # Count documents for each HTTP method
     get_meth = logs_collection.count_documents({"method": "GET"})
