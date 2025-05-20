@@ -11,5 +11,6 @@ rl.on('line', (line) => {
   } else {
     console.log(`Your name is: ${line}`);
     console.log('This important software is now closing');
+    rl.close();
   }
 });
