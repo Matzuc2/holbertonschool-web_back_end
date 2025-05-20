@@ -24,16 +24,16 @@ async function countStudents(path) {
 
     namelistCS = namelistCS.toString().replace(/,/g, ', ');
     namelistSWE = namelistSWE.toString().replace(/,/g, ', ');
-    
+
     console.log(`Number of students: ${CountAll}`);
     console.log(`Number of students in CS: ${CountCS}. List: ${namelistCS}`);
     console.log(`Number of students in SWE: ${CountSWE}. List: ${namelistSWE}`);
-    
-     // Create a string in the required format
-const output = `Number of students: ${CountAll}
+
+    // Create a string in the required format
+    const output = `Number of students: ${CountAll}
 Number of students in CS: ${CountCS}. List: ${namelistCS}
 Number of students in SWE: ${CountSWE}. List: ${namelistSWE}`;
-    
+
     return output;
   } catch (error) {
     throw new Error('Cannot load the database');
