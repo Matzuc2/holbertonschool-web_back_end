@@ -10,6 +10,6 @@ rl.on('line', (line) => {
     process.exit(0);
   } else {
     console.log(`Your name is: ${line}`);
-    console.log('This important software is now closing\n');
+    console.log('This important software is now closing');
   }
 });
