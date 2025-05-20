@@ -6,20 +6,15 @@ class StudentsController {
     const dbPath = process.argv[2];
     const data = readDatabase(dbPath);
     data.then((output) => {
-      // Start building the response string
       let responseText = 'This is the list of our students\n';
-      
-      // Format CS students data
       const csLength = output['CS'].length;
       const csList = output['CS'].join(', ');
       responseText += `Number of students in CS: ${csLength}. List: ${csList}\n`;
       
-      // Format SWE students data
       const sweLength = output['SWE'].length;
       const sweList = output['SWE'].join(', ');
       responseText += `Number of students in SWE: ${sweLength}. List: ${sweList}`;
       
-      // Send the formatted response
       response
         .status(200)
         .send(responseText);
