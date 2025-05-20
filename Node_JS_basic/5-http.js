@@ -13,7 +13,7 @@ const app = http.createServer((req, res) => {
     countStudents(process.argv[2])
       .then((data) => {
         res.end(data);
-      })
+      });
   }
 });
 // Étape 3: Démarrer le serveur
