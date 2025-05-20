@@ -4,7 +4,7 @@ async function countStudents(path) {
   try {
     const data = await fs.readFile(path, 'utf8');
 
-    const rows = data.split('\n').slice(1).filter(row => row.trim() !== '');
+    const rows = data.split('\n').slice(1).filter((row) => row.trim() !== '');
     let namelistCS = [];
     let namelistSWE = [];
     let CountCS = 0;
