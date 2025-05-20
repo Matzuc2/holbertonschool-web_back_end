@@ -28,24 +28,25 @@ class StudentsController {
   static getAllStudentsByMajor(request, response) {
     const { major } = request.params;
     if (major !== 'CS' && major !== 'SWE') {
-      return response
+      response
         .status(500)
         .send('Major parameter must be CS or SWE');
+    } else {
+      const dbPath = process.argv[2];
+      const data = readDatabase(dbPath);
+      data
+        .then((output) => {
+          const ListMajor = output[major].join(', ');
+          response
+            .status(200)
+            .send(`List: ${ListMajor}`);
+        })
+        .catch(() => {
+          response
+            .status(500)
+            .send('Cannot load the database');
+        });
     }
-    const dbPath = process.argv[2];
-    const data = readDatabase(dbPath);
-    data
-      .then((output) => {
-        const ListMajor = output[major].join(', ');
-        response
-          .status(200)
-          .send(`List: ${ListMajor}`);
-      })
-      .catch(() => {
-        response
-          .status(500)
-          .send('Cannot load the database');
-      });
   }
 }
 
