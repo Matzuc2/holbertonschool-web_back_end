@@ -9,11 +9,15 @@ const app = http.createServer((req, res) => {
     res.end('Hello Holberton School!'); // On envoie une réponse au client
   } else if (req.url === '/students') {
     res.writeHead(200, { 'Content-Type': 'text/plain' }); // On définit le statut HTTP et les en-têtes de la réponse
-    res.write('This is the list of our students\n');
-    countStudents(process.argv[2])
-      .then((data) => {
-        res.end(data);
-      });
+    if (process.argv[2] === null) {
+      res.write('This is the list of our students\n');
+    } else if (process.argv[2]) {
+      res.write('This is the list of our students\n');
+      countStudents(process.argv[2])
+        .then((data) => {
+          res.end(data);
+        });
+    }
   }
 });
 // Étape 3: Démarrer le serveur
