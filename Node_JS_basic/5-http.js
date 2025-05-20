@@ -14,12 +14,6 @@ const app = http.createServer((req, res) => {
       .then((data) => {
         res.end(data);
       })
-      .catch((error) => {
-        res.end(`Error: ${error.message}`);
-      });
-  } else {
-    res.statusCode = 404;
-    res.end('Not found');
   }
 });
 // Étape 3: Démarrer le serveur
