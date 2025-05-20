@@ -17,3 +17,4 @@ app.get('/students', (req, res) => {
 });
 // Start the server
 app.listen(1245);
+module.exports = app;
