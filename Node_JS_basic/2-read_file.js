@@ -22,6 +22,9 @@ function countStudents(path) {
       }
     });
 
+    namelistCS = namelistCS.toString().replace(/,/g, ', ');
+    namelistSWE = namelistSWE.toString().replace(/,/g, ', ');
+
     console.log(`Number of students: ${CountAll}`);
     console.log(`Number of students in CS: ${CountCS}. List: ${namelistCS}`);
     console.log(`Number of students in SWE: ${CountSWE}. List: ${namelistSWE}`);
