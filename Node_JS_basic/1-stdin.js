@@ -7,7 +7,7 @@ console.log('Welcome to Holberton School, what is your name?');
 rl.on('line', (line) => {
   if (process.stdin.isTTY) {
     console.log(`Your name is: ${line}`);
-    process.exit(0);
+    rl.close()
   } else {
     console.log(`Your name is: ${line}`);
     console.log('This important software is now closing');
