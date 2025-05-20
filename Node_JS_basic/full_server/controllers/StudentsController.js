@@ -38,11 +38,11 @@ class StudentsController {
         .status(500)
         .send('Major parameter must be CS or SWE');
     }
-    const dbPath = path.resolve(__dirname, '..', process.argv[2]);
+    const dbPath = process.argv[2];
     const data = readDatabase(dbPath);
     data
       .then((output) => {
-        let ListMajor = output[major];
+        let ListMajor = output[major].join(', ');
         response
           .status(200)
           .send(`List: ${ListMajor}`);
