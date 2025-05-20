@@ -14,9 +14,9 @@ app.get('/students', (req, res) => {
     .then((data) => {
       res.send(`This is the list of our students\n${data}`);
     })
-    .catch((error) =>{
+    .catch((error) => {
       res.send(`This is the list of our students\n${error.message}`);
-    })
+    });
 });
 // Start the server
 app.listen(1245);
