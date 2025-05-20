@@ -1,12 +1,12 @@
 const fs = require('fs').promises;
 
 async function readDatabase(path) {
-    try {
+  try {
     const data = await fs.readFile(path, 'utf8');
 
     const rows = data.split('\n').slice(1).filter((row) => row.trim() !== '');
-    let namelistCS = [];
-    let namelistSWE = [];
+    const namelistCS = [];
+    const namelistSWE = [];
 
     rows.forEach((row) => {
       const columns = row.split(',');
@@ -18,7 +18,7 @@ async function readDatabase(path) {
     });
 
     // Create a string in the required format
-    const output = {CS: namelistCS, SWE: namelistSWE}
+    const output = { CS: namelistCS, SWE: namelistSWE };
 
     return output;
   } catch (error) {

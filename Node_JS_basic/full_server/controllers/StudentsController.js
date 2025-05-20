@@ -1,5 +1,4 @@
-const readDatabase = require('../utils.js');
-const path = require('path');
+const readDatabase = require('../utils');
 
 class StudentsController {
   static getAllStudents(request, response) {
@@ -7,29 +6,29 @@ class StudentsController {
     const data = readDatabase(dbPath);
     data.then((output) => {
       let responseText = 'This is the list of our students\n';
-      const csLength = output['CS'].length;
-      const csList = output['CS'].join(', ');
+      const csLength = output.CS.length;
+      const csList = output.CS.join(', ');
       responseText += `Number of students in CS: ${csLength}. List: ${csList}\n`;
-      
-      const sweLength = output['SWE'].length;
-      const sweList = output['SWE'].join(', ');
+
+      const sweLength = output.SWE.length;
+      const sweList = output.SWE.join(', ');
       responseText += `Number of students in SWE: ${sweLength}. List: ${sweList}`;
-      
+
       response
         .status(200)
         .send(responseText);
     })
-    .catch((error) => {
-      response
-        .status(500)
-        .send('Cannot load the database');
-    });
+      .catch(() => {
+        response
+          .status(500)
+          .send('Cannot load the database');
+      });
   }
 
   static getAllStudentsByMajor(request, response) {
-    const major = request.params.major;
-    if (major !== "CS" && major !== "SWE") {
-      return response
+    const { major } = request.params;
+    if (major !== 'CS' && major !== 'SWE') {
+      response
         .status(500)
         .send('Major parameter must be CS or SWE');
     }
@@ -37,7 +36,7 @@ class StudentsController {
     const data = readDatabase(dbPath);
     data
       .then((output) => {
-        let ListMajor = output[major].join(', ');
+        const ListMajor = output[major].join(', ');
         response
           .status(200)
           .send(`List: ${ListMajor}`);
