@@ -6,14 +6,19 @@ const app = http.createServer((req, res) => {
 
   if (req.url === '/') {
     res.writeHead(200, { 'Content-Type': 'text/plain' })
-    res.write('Hello Holberton School!')
-    res.end(); // On envoie une réponse au clien
+    res.end('Hello Holberton School!'); // On envoie une réponse au clien
   }
   else if (req.url === '/students') {
     res.writeHead(200, { 'Content-Type': 'text/plain' }); // On définit le statut HTTP et les en-têtes de la réponse
     res.write("This is the list of our students\n")
-    res.write(countStudents('./database.csv'))
-    res.end()
+    countStudents('./database.csv')
+    .then((data) =>{
+        res.end(data)
+    })
+  }
+  else{
+    res.statusCode = 404;
+    res.end('Not found');
   }
 });
 // Étape 3: Démarrer le serve

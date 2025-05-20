@@ -30,8 +30,7 @@ async function countStudents(path) {
     console.log(`Number of students in SWE: ${CountSWE}. List: ${namelistSWE}`);
     
      // Create a string in the required format
-const output = `This is the list of our students
-Number of students: ${CountAll}
+const output = `Number of students: ${CountAll}
 Number of students in CS: ${CountCS}. List: ${namelistCS}
 Number of students in SWE: ${CountSWE}. List: ${namelistSWE}`;
     
