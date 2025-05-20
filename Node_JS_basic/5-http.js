@@ -10,7 +10,7 @@ const app = http.createServer((req, res) => {
   } else if (req.url === '/students') {
     res.writeHead(200, { 'Content-Type': 'text/plain' }); // On définit le statut HTTP et les en-têtes de la réponse
     res.write('This is the list of our students\n');
-    countStudents('./database.csv')
+    countStudents(process.argv[2])
       .then((data) => {
         res.end(data);
       })
