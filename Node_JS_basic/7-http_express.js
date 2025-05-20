@@ -13,7 +13,10 @@ app.get('/students', (req, res) => {
   countStudents(process.argv[2])
     .then((data) => {
       res.send(`This is the list of our students\n${data}`);
-    });
+    })
+    .catch((error) =>{
+      res.send(`This is the list of our students\n${error.message}`);
+    })
 });
 // Start the server
 app.listen(1245);
