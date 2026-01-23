@@ -45,4 +45,3 @@ class FIFOCache(BaseCaching):
             return self.cache_data.get(key)
         else:
             return None
-
