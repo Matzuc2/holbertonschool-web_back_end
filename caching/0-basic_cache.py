@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Basic caching module that implements a simple cache system without 
+"""Basic caching module that implements a simple cache system without
 any limit."""
 from base_caching import BaseCaching
 
@@ -12,7 +12,8 @@ class BasicCache(BaseCaching):
     """
 
     def __init__(self):
-        """Initialize the BasicCache instance by calling the parent constructor."""
+        """Initialize the BasicCache instance by calling
+        the parent constructor."""
         super().__init__()
 
     def put(self, key, item):
