@@ -26,7 +26,7 @@ class LIFOCache(BaseCaching):
         If the cache exceeds MAX_ITEMS, the last item added is removed.
         """
         if key and item:
-                self.cache_data[key] = item
+            self.cache_data[key] = item
         if len(self.cache_data) > BaseCaching.MAX_ITEMS:
             last_key = list(self.cache_data)[-2]
             self.cache_data.pop(last_key)
