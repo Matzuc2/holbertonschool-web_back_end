@@ -31,6 +31,7 @@ class LIFOCache(BaseCaching):
             last_key = list(self.cache_data)[-2]
             self.cache_data.pop(last_key)
             print(f"DISCARD: {last_key}")
+
     def get(self, key):
         """Retrieve an item from the cache by key.
 
