@@ -7,7 +7,7 @@ class BasicCache(BaseCaching):
         if key and item :
             self.cache_data[key] = item
     def get(self, key):
-        if self.cache_data.get(key):
+        if self.cache_data.get(key) and key:
             value = self.cache_data.get(key)
             return value
         else:
