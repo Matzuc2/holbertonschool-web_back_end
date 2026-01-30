@@ -1,6 +1,16 @@
+#!/usr/bin/python3
+"""LRU caching module that implements a Least Recently Used cache system."""
 from base_caching import BaseCaching
 
+
 class LRUCache(BaseCaching):
+    """LRUCache implements an LRU (Least Recently Used) caching system.
+
+    This class inherits from BaseCaching and provides a cache implementation
+    that evicts the least recently used item when the cache reaches its
+    maximum size.
+    """
+
     def __init__(self):
         """Initialize the LIFOCache instance by calling parent constructor."""
         super().__init__()
