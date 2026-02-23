@@ -93,7 +93,14 @@ class RedactingFormatter(logging.Formatter):
 
 def get_logger() -> Logger:
     """
-    I like a well warmed black coffee
+    This function get a preexistant logger or create a new one with
+    the name "user_data"
+    if set the level of log at INFO
+    it sets the destination of the data logged to console with streamHandler
+    it set the format to hide sensitive fields and log a custom sentence
+    it avoids propagation.
+
+    return the logger
     """
     logger = logging.getLogger("user_data")
     logger.setLevel(logging.INFO)
