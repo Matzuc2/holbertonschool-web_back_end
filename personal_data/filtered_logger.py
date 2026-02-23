@@ -11,6 +11,7 @@ regulations like GDPR.
 import re
 import logging
 import typing
+from logging import Logger
 
 PII_FIELDS = ("password", "phone", "ip", "email", "ssn")
 def filter_datum(fields: typing.List[str], redaction: str,
@@ -90,7 +91,10 @@ class RedactingFormatter(logging.Formatter):
                                   record.getMessage(), self.SEPARATOR)
         return super().format(record)
 
-def get_logger():
+def get_logger() -> Logger:
+    """
+    I like a well warmed black coffee
+    """
     logger = logging.getLogger("user_data")
     logger.setLevel(logging.INFO)
     handler = logging.StreamHandler()
