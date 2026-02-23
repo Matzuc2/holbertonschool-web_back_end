@@ -12,6 +12,7 @@ import re
 import logging
 import typing
 import mysql.connector
+from mysql.connector.abstracts import MySQLConnectionAbstract
 import os
 
 
@@ -127,13 +128,30 @@ def get_logger() -> logging.Logger:
     return logger
 
 
-def get_db() -> mysql.connector.connection.MySQLConnection:
+def get_db() -> MySQLConnectionAbstract :
     """
     grant connexion to database with env variables
     """
-    cnx: mysql.connector.connection.MySQLConnection = mysql.connector.connect(
+    cnx = mysql.connector.connect(
             user=os.getenv("PERSONAL_DATA_DB_USERNAME", "root"),
             password=os.getenv("PERSONAL_DATA_DB_PASSWORD", "root"),
             database=os.getenv("PERSONAL_DATA_DB_NAME", "localhost")
     )
     return cnx
+
+if __name__ == "__main__":
+    cnx = get_db()
+    logger = get_logger()
+    cursor = cnx.cursor()
+    cursor.execute("SELECT * FROM users")
+    rows = cursor.fetchall()
+    columns = cursor.description
+    fields = []
+    for column in columns:
+        fields.append(column[0])
+    for row in rows:
+        # 1. Créer les paires (field, value)
+        paired = zip(fields, row)
+        formatted_parts = [f"{field}={value}" for field, value in paired]
+        message = ";".join(formatted_parts)
+        logger.info(message)
