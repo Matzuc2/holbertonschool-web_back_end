@@ -32,7 +32,11 @@ def hash_password(password: str) -> bytes:
     salt = bcrypt.gensalt()
     return bcrypt.hashpw(password_bytes, salt=salt)
 
-def is_valid(hashed_password, password) -> bool:
+
+def is_valid(hashed_password: bytes, password: str) -> bool:
+    """
+    I like a well warmed black coffee
+    """
     password_bytes = password.encode('utf-8')
     pwd_bool = bcrypt.checkpw(password_bytes, hashed_password)
     return pwd_bool
