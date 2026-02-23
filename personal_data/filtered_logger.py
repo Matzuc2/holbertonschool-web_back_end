@@ -1,29 +1,90 @@
-import re
+"""
+Module for filtering and redacting sensitive information in logs.
 
-def filter_datum(fields: list[str], redaction: str, message: str, separator: str) -> str:
+This module provides utilities to obfuscate personally identifiable
+information (PII) in log messages to comply with data protection
+regulations like GDPR.
+"""
+
+import re
+import logging
+
+
+def filter_datum(fields: list[str], redaction: str,
+                 message: str, separator: str) -> str:
+    """
+    Obfuscate specified fields in a log message.
+
+    Uses regex substitution to replace field values with a redaction string
+    while preserving field names and message structure.
+
+    Args:
+        fields (list[str]): List of field names to obfuscate.
+        redaction (str): String to replace sensitive values with.
+        message (str): The log message containing field=value pairs.
+        separator (str): Character separating field=value pairs.
+
+    Returns:
+        str: The message with specified field values replaced by redaction.
+
+    Example:
+        >>> filter_datum(["password"], "***", "name=Bob;password=secret", ";")
+        'name=Bob;password=***'
+    """
     for field in fields:
         pattern = f"{field}=[^{separator}]*"
         message = re.sub(pattern, f"{field}={redaction}", message)
     return message
 
 
-import logging
-
-
 class RedactingFormatter(logging.Formatter):
-    """ Redacting Formatter class
-        """
+    """
+    Custom logging formatter that redacts sensitive information.
+
+    This formatter automatically obfuscates specified fields in log messages
+    before formatting them. It's designed to protect PII in application logs.
+
+    Attributes:
+        REDACTION (str): Default string used to replace sensitive values.
+        FORMAT (str): Log message format string with placeholders.
+        SEPARATOR (str): Default separator character for field=value pairs.
+        fields (list[str]): List of field names to redact.
+
+    Example:
+        >>> formatter = RedactingFormatter(fields=["email", "password"])
+        >>> handler = logging.StreamHandler()
+        >>> handler.setFormatter(formatter)
+    """
 
     REDACTION = "***"
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
 
     def __init__(self, fields: list[str]):
+        """
+        Initialize the RedactingFormatter.
+
+        Args:
+            fields (list[str]): List of field names to redact in log messages.
+        """
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
-        record.msg = filter_datum(self.fields, self.REDACTION, record.getMessage(), self.SEPARATOR)
+        """
+        Format a log record with sensitive fields redacted.
+
+        This method intercepts the log message, applies field obfuscation,
+        then delegates to the parent formatter for final formatting.
+
+        Args:
+            record (logging.LogRecord): The log record to format.
+
+        Returns:
+            str: The formatted log message with sensitive data redacted.
+        """
+        record.msg = filter_datum(self.fields, self.REDACTION,
+                                  record.getMessage(), self.SEPARATOR)
         return super().format(record)
 
 
