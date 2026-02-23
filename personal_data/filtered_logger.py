@@ -11,15 +11,14 @@ regulations like GDPR.
 import re
 import logging
 import typing
-from logging import Logger
 
 
-PII_FIELDS = ("ssn", "password", "phone", "name", "email")
+PII_FIELDS = ("name", "email", "phone", "ssn", "password")
+"""tuple: Fields considered as PII that should be redacted in logs."""
 
 
 def filter_datum(fields: typing.List[str], redaction: str,
                  message: str, separator: str) -> str:
-
     """
     Obfuscate specified fields in a log message.
 
@@ -27,7 +26,7 @@ def filter_datum(fields: typing.List[str], redaction: str,
     while preserving field names and message structure.
 
     Args:
-        fields (list[str]): List of field names to obfuscate.
+        fields (typing.List[str]): List of field names to obfuscate.
         redaction (str): String to replace sensitive values with.
         message (str): The log message containing field=value pairs.
         separator (str): Character separating field=value pairs.
@@ -56,7 +55,7 @@ class RedactingFormatter(logging.Formatter):
         REDACTION (str): Default string used to replace sensitive values.
         FORMAT (str): Log message format string with placeholders.
         SEPARATOR (str): Default separator character for field=value pairs.
-        fields (list[str]): List of field names to redact.
+        fields (typing.List[str]): List of field names to redact.
 
     Example:
         >>> formatter = RedactingFormatter(fields=["email", "password"])
@@ -73,7 +72,7 @@ class RedactingFormatter(logging.Formatter):
         Initialize the RedactingFormatter.
 
         Args:
-            fields (list[str]): List of field names to redact in log messages.
+            fields (typing.List[str]): List of field names to redact in logs.
         """
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields = fields
@@ -96,22 +95,31 @@ class RedactingFormatter(logging.Formatter):
         return super().format(record)
 
 
-def get_logger() -> Logger:
+def get_logger() -> logging.Logger:
     """
-    This function get a preexistant logger or create a new one with
-    the name "user_data"
-    if set the level of log at INFO
-    it sets the destination of the data logged to console with streamHandler
-    it set the format to hide sensitive fields and log a custom sentence
-    it avoids propagation.
+    Create and configure a logger for user data with PII redaction.
 
-    return the logger
+    Creates a logger named 'user_data' configured to:
+    - Log up to INFO level
+    - Not propagate messages to parent loggers
+    - Use RedactingFormatter to obfuscate PII fields
+    - Output to console via StreamHandler
+
+    Returns:
+        logging.Logger: Configured logger instance with PII protection.
+
+    Example:
+        >>> logger = get_logger()
+        >>> logger.info("name=John;email=john@mail.com;password=secret")
+        [HOLBERTON] user_data INFO 2026-02-23: name=***;email=***;password=***
     """
     logger = logging.getLogger("user_data")
     logger.setLevel(logging.INFO)
+    logger.propagate = False
+
     handler = logging.StreamHandler()
     formatter = RedactingFormatter(fields=list(PII_FIELDS))
     handler.setFormatter(formatter)
     logger.addHandler(handler)
-    logger.propagate = False
+
     return logger
