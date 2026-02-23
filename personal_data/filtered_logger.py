@@ -10,9 +10,10 @@ regulations like GDPR.
 
 import re
 import logging
+import typing
 
 
-def filter_datum(fields: list[str], redaction: str,
+def filter_datum(fields: typing.List[str], redaction: str,
                  message: str, separator: str) -> str:
     """
     Obfuscate specified fields in a log message.
@@ -62,7 +63,7 @@ class RedactingFormatter(logging.Formatter):
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
 
-    def __init__(self, fields: list[str]):
+    def __init__(self, fields: typing.List[str]):
         """
         Initialize the RedactingFormatter.
 
