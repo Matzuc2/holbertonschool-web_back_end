@@ -1,3 +1,5 @@
+#!/usr/bin/env
+
 """
 Module for filtering and redacting sensitive information in logs.
 
