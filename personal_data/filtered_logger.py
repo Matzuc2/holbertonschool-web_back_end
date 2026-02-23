@@ -13,9 +13,13 @@ import logging
 import typing
 from logging import Logger
 
+
 PII_FIELDS = ("ssn", "password", "phone", "name", "email")
+
+
 def filter_datum(fields: typing.List[str], redaction: str,
                  message: str, separator: str) -> str:
+
     """
     Obfuscate specified fields in a log message.
 
@@ -90,6 +94,7 @@ class RedactingFormatter(logging.Formatter):
         record.msg = filter_datum(self.fields, self.REDACTION,
                                   record.getMessage(), self.SEPARATOR)
         return super().format(record)
+
 
 def get_logger() -> Logger:
     """
