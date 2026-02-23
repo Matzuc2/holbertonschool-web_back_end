@@ -13,7 +13,7 @@ import logging
 import typing
 from logging import Logger
 
-PII_FIELDS = ("password", "phone", "ip", "name", "email")
+PII_FIELDS = ("ssn", "phone", "ip", "name", "email")
 def filter_datum(fields: typing.List[str], redaction: str,
                  message: str, separator: str) -> str:
     """
