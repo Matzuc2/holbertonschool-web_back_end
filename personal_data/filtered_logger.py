@@ -137,4 +137,3 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
             database=os.getenv("PERSONAL_DATA_DB_NAME", "localhost")
     )
     return cnx
-
