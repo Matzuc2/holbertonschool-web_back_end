@@ -11,6 +11,8 @@ regulations like GDPR.
 import re
 import logging
 import typing
+import mysql.connector
+import os
 
 
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
@@ -123,3 +125,16 @@ def get_logger() -> logging.Logger:
     logger.addHandler(handler)
 
     return logger
+
+
+def get_db():
+    """
+    grant connexion to database with env variables
+    """
+    cnx = mysql.connector.connect(
+            user=os.getenv("PERSONAL_DATA_DB_USERNAME", "root"),
+            password=os.getenv("PERSONAL_DATA_DB_PASSWORD", "root"),
+            database=os.getenv("PERSONAL_DATA_DB_NAME", "localhost")
+    )
+    return cnx
+
