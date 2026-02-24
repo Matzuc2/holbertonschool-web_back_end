@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """
-Route module for the API
+Route module for the API.
+
+This module initializes the Flask application, sets up CORS,
+registers blueprints, configures authentication, and defines
+error handlers for common HTTP errors.
 """
 from os import getenv
 from api.v1.views import app_views
@@ -23,26 +27,68 @@ if auth:
 
 @app.errorhandler(404)
 def not_found(error) -> str:
-    """ Not found handler
+    """
+    Handle 404 Not Found errors.
+
+    Args:
+        error: The error object passed by Flask.
+
+    Returns:
+        str: A JSON response with an error message and 404 status code.
     """
     return jsonify({"error": "Not found"}), 404
 
 
 @app.errorhandler(401)
 def unauthorized(error) -> str:
-    """Unauthorized handler
+    """
+    Handle 401 Unauthorized errors.
+
+    Args:
+        error: The error object passed by Flask.
+
+    Returns:
+        str: A JSON response with an error message and 401 status code.
     """
     return jsonify({"error": "Unauthorized"}), 401
 
 
 @app.errorhandler(403)
 def forbidden(error) -> str:
-    """Forbidden handler
+    """
+    Handle 403 Forbidden errors.
+
+    Args:
+        error: The error object passed by Flask.
+
+    Returns:
+        str: A JSON response with an error message and 403 status code.
     """
     return jsonify({"error": "Forbidden"}), 403
 
+
 @app.before_request
 def before_request():
+    """
+    Execute before each request to validate authentication.
+
+    This function runs before processing any request. It checks if
+    authentication is required for the requested path and validates
+    the authorization header and current user. If authentication fails,
+    it aborts the request with appropriate HTTP error codes.
+
+    Excluded paths that don't require authentication:
+        - /api/v1/status/
+        - /api/v1/unauthorized/
+        - /api/v1/forbidden/
+
+    Aborts with:
+        - 401: If authorization header is missing or invalid.
+        - 403: If the current user cannot be authenticated.
+
+    Returns:
+        None: Returns early if no authentication is needed.
+    """
     if auth is None:
         return
     if not auth.require_auth(request.path, ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']):
