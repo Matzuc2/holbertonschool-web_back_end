@@ -30,12 +30,12 @@ class BasicAuth(Auth):
         """
         Extract the Base64 part of the Authorization header for base auth
 
-        This method takes an Authorization header and extracts the 
+        This method takes an Authorization header and extracts the
         Base64-encoded
         credentials portion after the "Basic " prefix.
 
         Args:
-            authorization_header (str): The full 
+            authorization_header (str): The full
             Authorization header value
             (e.g., "Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==").
 
@@ -47,7 +47,7 @@ class BasicAuth(Auth):
         """
         if not authorization_header:
             return None
-        if type(authorization_header) != str:
+        if type(authorization_header) is str:
             return None
         if not authorization_header.startswith("Basic "):
             return None
