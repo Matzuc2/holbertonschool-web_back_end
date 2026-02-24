@@ -43,7 +43,6 @@ class Auth():
         if path not in excluded_paths:
             return True
 
-
     def authorization_header(self, request=None) -> str:
         """
         Extract the authorization header from a Flask request.
