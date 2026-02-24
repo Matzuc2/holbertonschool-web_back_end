@@ -26,28 +26,23 @@ class BasicAuth(Auth):
         Inherits all methods from the Auth base class.
         Additional methods will be implemented for Basic Authentication.
     """
-    def extract_base64_authorization_header(self, authorization_header: str) -> str:
+    def extract_base64_authorization_header(self, authorization_header: str):
         """
-        Extract the Base64 part of the Authorization header for Basic Authentication.
+        Extract the Base64 part of the Authorization header for base auth
 
-        This method takes an Authorization header and extracts the Base64-encoded
+        This method takes an Authorization header and extracts the 
+        Base64-encoded
         credentials portion after the "Basic " prefix.
 
         Args:
-            authorization_header (str): The full Authorization header value
-                                       (e.g., "Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==").
+            authorization_header (str): The full 
+            Authorization header value
+            (e.g., "Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==").
 
         Returns:
             str: The Base64-encoded credentials string if valid,
                  None if the header is invalid, None, not a string,
                  or doesn't start with "Basic ".
-
-        Examples:
-            >>> extract_base64_authorization_header("Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==")
-            "QWxhZGRpbjpvcGVuIHNlc2FtZQ=="
-            >>> extract_base64_authorization_header("Bearer token123")
-            None
-            >>> extract_base64_authorization_header(None)
             None
         """
         if not authorization_header:
