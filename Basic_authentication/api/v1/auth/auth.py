@@ -56,7 +56,12 @@ class Auth():
                  In a full implementation, returns the value of the
                  Authorization header if present, None otherwise.
         """
-        return None
+        if request is None:
+            return None
+        if not request.headers.get("Authorization", None):
+            return None
+        else:
+            return request.headers["Authorization"]
 
     def current_user(self, request=None) -> user.User:
         """
