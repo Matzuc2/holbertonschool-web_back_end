@@ -127,7 +127,7 @@ class BasicAuth(Auth):
             return None
         if not user_pwd or type(user_pwd) is not str:
             return None
-        if not User.search({"email": user_email}):
+        if len(User.search({"email": user_email})) == 0:
             return None
         found_users: list[User] = User.search({"email": user_email})
         if not found_users[0].is_valid_password(user_pwd):
