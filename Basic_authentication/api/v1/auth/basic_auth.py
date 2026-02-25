@@ -98,8 +98,9 @@ class BasicAuth(Auth):
             return decoded
         except Exception:
             return None
+
     def extract_user_credentials(
-            self, 
+            self,
             decoded_base64_authorization_header: str
     ) -> (str, str):
         """
