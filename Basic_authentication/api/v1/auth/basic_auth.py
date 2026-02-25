@@ -128,6 +128,7 @@ class BasicAuth(Auth):
             return None
         if not user_pwd or type(user_pwd) is not str:
             return None
+        User.load_from_file()
         found_users = User.search({"email": user_email})
         if len(found_users) == 0 or found_users is None:
             return None
