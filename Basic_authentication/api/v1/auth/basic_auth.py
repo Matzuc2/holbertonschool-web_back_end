@@ -168,7 +168,7 @@ class BasicAuth(Auth):
             >>> user = basic_auth.current_user(request)
             >>> print(user.email)
             'user@example.com'
-            
+
             >>> # Invalid or missing auth header
             >>> user = basic_auth.current_user(request)
             >>> print(user)
