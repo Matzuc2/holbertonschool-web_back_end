@@ -8,6 +8,7 @@ to provide Basic Authentication specific functionality.
 """
 from api.v1.auth.auth import Auth
 from models.user import User
+from models.base import Base
 import base64
 
 
