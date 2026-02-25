@@ -7,6 +7,7 @@ Authentication for the API endpoints. It extends the base Auth class
 to provide Basic Authentication specific functionality.
 """
 from api.v1.auth.auth import Auth
+from models.user import User
 import base64
 
 
@@ -117,3 +118,18 @@ class BasicAuth(Auth):
             email = credentials[0]
             password = credentials[1]
             return (email, password)
+
+    def user_object_from_credentials(self, user_email: str, user_pwd: str):
+        """
+        hello world
+        """
+        if not user_email or type(user_email) is not str:
+            return None
+        if not user_pwd or type(user_pwd) is not str:
+            return None
+        if not User.search({"email": user_email}):
+            return None
+        found_users: list[User] = User.search({"email": user_email})
+        if not found_users[0].is_valid_password(user_pwd):
+            return None
+        return found_users[0]
