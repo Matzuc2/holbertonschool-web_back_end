@@ -135,3 +135,11 @@ class BasicAuth(Auth):
         if not found_users[0].is_valid_password(user_pwd):
             return None
         return found_users[0]
+
+    def current_user(self, request=None) -> User:
+        auth_header = self.authorization_header(request)
+        b64_header = self.extract_base64_authorization_header(auth_header)
+        credentials_string = self.decode_base64_authorization_header(b64_header)
+        user_credentials = self.extract_user_credentials(credentials_string)
+        user = self.user_object_from_credentials(user_credentials[0], user_credentials[1])
+        return user
