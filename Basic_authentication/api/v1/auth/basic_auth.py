@@ -102,6 +102,9 @@ class BasicAuth(Auth):
             self, 
             decoded_base64_authorization_header: str
     ) -> (str, str):
+        """
+        allo alloallo
+        """
         if not decoded_base64_authorization_header:
             return (None, None)
         elif type(decoded_base64_authorization_header) is not str:
@@ -113,6 +116,3 @@ class BasicAuth(Auth):
             email = credentials[0]
             password = credentials[1]
             return (email, password)
-
-
-        
