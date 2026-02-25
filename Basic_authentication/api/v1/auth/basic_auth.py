@@ -137,9 +137,58 @@ class BasicAuth(Auth):
         return found_users[0]
 
     def current_user(self, request=None) -> User:
+        """
+        Retrieve the authenticated User instance for a request.
+
+        This method orchestrates the complete Basic Authentication
+        flow by:
+        1. Extracting the Authorization header from the request
+        2. Extracting the Base64 portion from the Authorization header
+        3. Decoding the Base64 string to get credentials
+        4. Parsing the credentials to extract email and password
+        5. Validating the credentials against the database
+        6. Returning the authenticated User object
+
+        Args:
+            request: The Flask request object containing the HTTP
+                     request data. Defaults to None if not provided.
+
+        Returns:
+            User: The authenticated User object if credentials are
+                  valid and the user exists in the database.
+            None: If any step in the authentication process fails:
+                  - Missing or invalid Authorization header
+                  - Invalid Base64 encoding
+                  - Invalid credential format
+                  - User not found in database
+                  - Invalid password
+
+        Examples:
+            >>> # Assuming a valid request with Basic Auth header
+            >>> user = basic_auth.current_user(request)
+            >>> print(user.email)
+            'user@example.com'
+            
+            >>> # Invalid or missing auth header
+            >>> user = basic_auth.current_user(request)
+            >>> print(user)
+            None
+
+        Note:
+            This method chains multiple authentication steps. If any
+            step returns None, subsequent steps will also return None,
+            providing a fail-safe authentication pipeline.
+        """
         auth_header = self.authorization_header(request)
         b64_header = self.extract_base64_authorization_header(auth_header)
-        credentials_string = self.decode_base64_authorization_header(b64_header)
-        user_credentials = self.extract_user_credentials(credentials_string)
-        user = self.user_object_from_credentials(user_credentials[0], user_credentials[1])
+        credentials_string = self.decode_base64_authorization_header(
+            b64_header
+        )
+        user_credentials = self.extract_user_credentials(
+            credentials_string
+        )
+        user = self.user_object_from_credentials(
+            user_credentials[0],
+            user_credentials[1]
+        )
         return user
