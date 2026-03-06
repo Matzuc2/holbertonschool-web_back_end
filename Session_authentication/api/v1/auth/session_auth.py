@@ -12,7 +12,7 @@ class SessionAuth(Auth):
 
     def create_session(self, user_id: str = None) -> str:
         """comment"""
-        
+
         if not user_id:
             return None
         if type(user_id) is not str:
@@ -20,3 +20,4 @@ class SessionAuth(Auth):
         else:
             session_id = str(uuid.uuid4())
             self.user_id_by_session_id[session_id] = user_id
+            return session_id
