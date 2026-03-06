@@ -101,12 +101,14 @@ def before_request():
         '/api/v1/unauthorized/',
         '/api/v1/forbidden/'
         ]
+    current_user = auth.current_user(request)
     if not auth.require_auth(request.path, paths_without_auth):
         return
     if not auth.authorization_header(request):
         abort(401)
-    if not auth.current_user(request):
+    if not current_user:
         abort(403)
+    request.current_user = current_user
 
 
 if __name__ == "__main__":
