@@ -11,6 +11,8 @@ class SessionAuth(Auth):
     user_id_by_session_id: dict = {}
 
     def create_session(self, user_id: str = None) -> str:
+        """comment"""
+        
         if not user_id:
             return None
         if type(user_id) is not str:
