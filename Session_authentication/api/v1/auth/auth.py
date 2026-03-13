@@ -7,6 +7,7 @@ and authorization logic for the API endpoints.
 """
 from flask import request
 from models import user
+import os
 
 
 class Auth():
@@ -84,7 +85,8 @@ class Auth():
             hello friends
         """
         if request:
-          cookie =  request.cookies.get('_my_session_id', None)
+          cookie_name = os.environ.get('SESSION_NAME')
+          cookie =  request.cookies.get(cookie_name, None)
           try:
               str(cookie)
               return cookie
