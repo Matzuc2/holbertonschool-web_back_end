@@ -78,3 +78,11 @@ class Auth():
                       if no valid user is found.
         """
         return None
+
+    def session_cookie(self, request=None):
+        """hello worlds"""
+        if not request:
+            return None
+        else:
+          cookie =  request.cookies.get('_my_session_id')
+          return cookie
