@@ -80,9 +80,11 @@ class Auth():
         return None
 
     def session_cookie(self, request=None):
-        """hello worlds"""
-        if not request:
-            return None
-        else:
+        """
+            hello friends
+        """
+        if request:
           cookie =  request.cookies.get('_my_session_id', None)
           return cookie
+        else:
+            return None
