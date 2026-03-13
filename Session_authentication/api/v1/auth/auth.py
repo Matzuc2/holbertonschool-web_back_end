@@ -83,8 +83,8 @@ class Auth():
     def session_cookie(self, request=None):
         """hello friends"""
         if request:
-          cookie_name = os.environ.get('SESSION_NAME')
-          cookie =  request.cookies.get(cookie_name, None)
-          return cookie
+            cookie_name = os.environ.get('SESSION_NAME')
+            cookie = request.cookies.get(cookie_name, None)
+            return cookie
         else:
             return None
