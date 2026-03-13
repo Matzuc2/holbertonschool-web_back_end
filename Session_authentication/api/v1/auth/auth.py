@@ -85,6 +85,10 @@ class Auth():
         """
         if request:
           cookie =  request.cookies.get('_my_session_id', None)
-          return cookie
+          try:
+              str(cookie)
+              return cookie
+          except:
+              return None
         else:
             return None
