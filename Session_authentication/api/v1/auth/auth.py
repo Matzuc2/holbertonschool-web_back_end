@@ -85,10 +85,6 @@ class Auth():
         if request:
           cookie_name = os.environ.get('SESSION_NAME')
           cookie =  request.cookies.get(cookie_name, None)
-          try:
-              str(cookie)
-              return cookie
-          except:
-              return None
+          return cookie
         else:
             return None
