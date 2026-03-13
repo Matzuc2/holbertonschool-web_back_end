@@ -84,5 +84,5 @@ class Auth():
         if not request:
             return None
         else:
-          cookie =  request.cookies.get('_my_session_id')
+          cookie =  request.cookies.get('_my_session_id', None)
           return cookie
