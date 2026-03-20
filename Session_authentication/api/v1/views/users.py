@@ -126,6 +126,7 @@ def update_user(user_id: str = None) -> str:
     user.save()
     return jsonify(user.to_json()), 200
 
+from api.v1.app import auth
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 def login():
@@ -146,7 +147,6 @@ def login():
     if not user.is_valid_password(password):
         return jsonify({"error": "wrong password"}), 401
 
-    from api.v1.app import auth
 
     session_id = auth.create_session(user.id)
     response = jsonify(user.to_json())
