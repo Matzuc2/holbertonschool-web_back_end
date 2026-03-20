@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ Module of session view
 """
-from flask import jsonify, abort, request
+from flask import jsonify, request
 from api.v1.views import app_views
 from models.user import User
 
@@ -9,8 +9,8 @@ from models.user import User
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 def login():
     """POST"""
-    
-    email=request.form.get('email',None)
+
+    email = request.form.get('email', None)
     password=request.form.get('password', None)
     if not email or password == "":
         return jsonify({"error": "email missing"}), 400
@@ -27,4 +27,3 @@ def login():
     response = jsonify(users[0].to_json())
     response.set_cookie(os.environ['SESSION_NAME'], session_id)
     return response
-    
