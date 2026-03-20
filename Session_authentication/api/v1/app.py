@@ -104,15 +104,14 @@ def before_request():
         '/api/v1/forbidden/',
         '/api/v1/auth_session/login/'
         ]
-    current_user = auth.current_user(request)
-    if not current_user:
-        abort(403)
     if not auth.require_auth(request.path, paths_without_auth):
         return
     if not auth.authorization_header(request) and not auth.session_cookie(request):
         abort(401)
-    if not auth.authorization_header(request):
-        abort(401)
+    current_user = auth.current_user(request)
+    if not current_user:
+        abort(403)
+
     request.current_user = current_user
 
 
