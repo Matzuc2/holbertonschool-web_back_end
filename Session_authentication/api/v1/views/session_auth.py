@@ -7,12 +7,14 @@ from models.user import User
 
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
-def view():
+def login():
+    """POST"""
+    
     email=request.form.get('email',None)
     password=request.form.get('password', None)
-    if not email:
+    if not email or password == "":
         return jsonify({"error": "email missing"}), 400
-    if not password:
+    if not password and password == "":
         return jsonify({'error': 'password missing'}), 400
     users = User.search({'email': email})
     if not users and len(users) == 0:
@@ -22,8 +24,7 @@ def view():
     from api.v1.app import auth
     import os
     session_id = auth.create_session(users[0].id)
-    response = users[0].to_json()
-    out = jsonify(state=0, msg='success')
-    out.set_cookie(os.environ['SESSION_NAME'], session_id)
+    response = jsonify(users[0].to_json())
+    response.set_cookie(os.environ['SESSION_NAME'], session_id)
     return response
     
