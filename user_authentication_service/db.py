@@ -61,7 +61,7 @@ class DB:
             setattr(user, key, value)
         self._session.commit()
         return None
-    
+
     def _hash_password(self, password) -> bytes:
         """hash user password and returns it
         """
