@@ -4,6 +4,7 @@ from user import User
 from db import DB
 from sqlalchemy.exc import NoResultFound, InvalidRequestError
 
+
 def _hash_password(password) -> bytes:
     """hash user password and returns it
     """
@@ -25,7 +26,7 @@ class Auth:
         try:
             user = self._db.find_user_by(email=email)
             if user:
-                 raise ValueError(f"User {user.email} already exists.")
+                raise ValueError(f"User {user.email} already exists.")
         except NoResultFound:
             hashed_pwd = _hash_password(password)
             user = self._db.add_user(email=email, hashed_password=hashed_pwd)
