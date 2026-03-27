@@ -49,15 +49,14 @@ class DB:
         else:
             return user
 
-    def update_user(self, user_id, **kwargs) -> None:
+    def update_user(self, user_id: int, **kwargs) -> None:
         """update user fields passed in args
         """
 
         user = self.find_user_by(id=user_id)
-        filter_one = self._session.query(User).filter(User.id == user.id)
-        try:
-            filter_one.update(kwargs)
-        except KeyError:
-            raise ValueError
+        for key, value in kwargs.items():
+            if not hasattr(user, key):
+                raise ValueError
+            setattr(user, key, value)
         self._session.commit()
         return None
