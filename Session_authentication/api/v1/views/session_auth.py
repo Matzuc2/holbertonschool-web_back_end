@@ -9,7 +9,7 @@ import os
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 def login():
-    """POST"""
+    """POST, it is to log into your account"""
 
     from api.v1.app import auth
     email = request.form.get('email', None)
@@ -30,7 +30,7 @@ def login():
 
 @app_views.route('/auth_session/logout', methods=['DELETE'], strict_slashes=False)
 def delete():
-    """DELETE"""
+    """DELETE, it is the route to logout from your account"""
     from api.v1.app import auth
     success = auth.destroy_session(request)
     if success is False :
