@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 """ Module of session view
 """
-from flask import jsonify, request
+from flask import jsonify, request, abort
 from api.v1.views import app_views
 from models.user import User
-from api.v1.app import auth
 import os
 
 
@@ -12,6 +11,7 @@ import os
 def login():
     """POST"""
 
+    from api.v1.app import auth
     email = request.form.get('email', None)
     password=request.form.get('password', None)
     if not email:
@@ -27,3 +27,13 @@ def login():
     response = jsonify(users[0].to_json())
     response.set_cookie(os.environ['SESSION_NAME'], session_id)
     return response
+
+@app_views.route('/auth_session/logout', methods=['DELETE'], strict_slashes=False)
+def delete():
+    """DELETE"""
+    from api.v1.app import auth
+    success = auth.destroy_session(request)
+    if success is False :
+        abort(404)
+    if success is True:
+        return jsonify({}), 200
