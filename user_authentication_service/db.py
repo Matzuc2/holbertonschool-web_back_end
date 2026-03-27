@@ -57,7 +57,7 @@ class DB:
         filter_one = self._session.query(User).filter(User.id == user.id)
         try:
             filter_one.update(kwargs)
-        except ValueError:
+        except KeyError:
             raise ValueError
         self._session.commit()
         return None
