@@ -56,5 +56,4 @@ class DB:
         user = self.find_user_by(id=user_id)
         self._session.query(User).filter(User.id == user.id).update(kwargs)
         self._session.commit()
-        print(user.hashed_password)
         return None
