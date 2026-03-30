@@ -42,7 +42,7 @@ class DB:
         return user
 
     def find_user_by(self, **kwargs):
-        """ Find an user by his id on the session obj
+        """ Find an user by args
         """
         user = self._session.query(User).filter_by(**kwargs).first()
         if not user:
