@@ -34,8 +34,8 @@ class Auth:
             hashed_pwd = _hash_password(password)
             user = self._db.add_user(email=email, hashed_password=hashed_pwd)
             return user
-        
-    def valid_login(self, email, password)->bool:
+
+    def valid_login(self, email, password) -> bool:
         try:
             user = self._db.find_user_by(email=email)
             password_bytes = password.encode('utf-8')
@@ -43,4 +43,3 @@ class Auth:
             return verif
         except NoResultFound:
             return False
-
