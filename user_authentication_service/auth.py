@@ -51,7 +51,7 @@ class Auth:
         id1 = uuid.uuid1()
         id1_str = str(id1)
         return id1_str
-
+    
     def create_session(self, email) -> str:
         """create a session for an user, using the generated uuid
         """
