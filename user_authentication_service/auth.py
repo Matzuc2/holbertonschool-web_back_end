@@ -4,6 +4,7 @@
 import uuid
 import bcrypt
 from sqlalchemy.exc import NoResultFound
+from typing import Optional
 
 from db import DB
 from user import User
@@ -48,7 +49,7 @@ class Auth:
         """Generate and return a unique session identifier string."""
         return str(uuid.uuid4())
 
-    def create_session(self, email: str) -> str | None:
+    def create_session(self, email: str) -> Optional[str]:
         """Create and persist a session id for a user identified by email."""
         try:
             user = self._db.find_user_by(email=email)
@@ -58,15 +59,16 @@ class Auth:
         except NoResultFound:
             return None
 
-    def get_user_from_session_id(self, session_id: str) -> User | None:
+    def get_user_from_session_id(self, session_id: Optional[str]) -> Optional[User]:
         """Retrieve user by session ID."""
         if not session_id:
             return None
-        try:
-            user = self._db.find_user_by(session_id=session_id)
-            return user
-        except NoResultFound:
-            return None
+        else:
+            try:
+                user = self._db.find_user_by(session_id=session_id)
+                return user
+            except NoResultFound:
+                return None
 
     def destroy_session(self, user_id: int) -> None:
         """Invalidate the active session for the given user id."""
