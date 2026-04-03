@@ -68,7 +68,7 @@ class Auth:
     def get_user_from_session_id(self, session_id: Optional[str])\
             -> Optional[User]:
         """Retrieve user by session ID."""
-        if not session_id:
+        if session_id is None:
             return None
         else:
             try:
