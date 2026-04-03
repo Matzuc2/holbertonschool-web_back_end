@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify, request, abort, Response
 from auth import Auth
 
 app = Flask(__name__)
@@ -30,9 +30,11 @@ def login():
     if boolean is False:
         abort(401)
     else:
-        AUTH.create_session(email=email)
+        session_id = AUTH.create_session(email=email)
         data = {"email": email, "message": "logged in"}
-        return jsonify(data)
+        response = jsonify(data)
+        response.set_cookie(key="session_id", value=session_id)
+        return response
 
 
 if __name__ == "__main__":
