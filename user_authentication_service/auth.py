@@ -48,10 +48,11 @@ class Auth:
     def _generate_uuid(self):
         """generates an uuid for user session id
         """
+
         id1 = uuid.uuid1()
         id1_str = str(id1)
         return id1_str
-    
+
     def create_session(self, email) -> str:
         """create a session for an user, using the generated uuid
         """
@@ -60,5 +61,17 @@ class Auth:
             user_uid = self._generate_uuid()
             user.session_id = user_uid
             return user.session_id
+        except NoResultFound:
+            return None
+
+    def get_user_from_session_id(self, session_id) -> User | None:
+        """Method to retrieve user by session_id, it uses find_user_by method
+        """
+
+        if not session_id:
+            return None
+        try:
+            user = self._db.find_user_by(session_id=session_id)
+            return user
         except NoResultFound:
             return None
