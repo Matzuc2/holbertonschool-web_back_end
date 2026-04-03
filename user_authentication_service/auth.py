@@ -21,6 +21,7 @@ def _generate_uuid() -> str:
     """Generate and return a unique session identifier string."""
     return str(uuid.uuid4())
 
+
 class Auth:
     """Handle authentication operations backed by the database layer."""
 
@@ -53,7 +54,6 @@ class Auth:
                 return True
         except NoResultFound:
             return False
-
 
     def create_session(self, email: str) -> Optional[str]:
         """Create and persist a session id for a user identified by email."""
