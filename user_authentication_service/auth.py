@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import uuid
 import bcrypt
 from user import User
 from db import DB
@@ -43,3 +44,17 @@ class Auth:
             return verif
         except NoResultFound:
             return False
+
+    def _generate_uuid(self):
+        id1 = uuid.uuid4()
+        id1_str = str(id1)
+        return id1_str
+    
+    def create_sesssion(self, email) -> str:
+        try:
+            user = self._db.find_user_by(email)
+            user_uid = self._generate_uuid
+            user.session_id = user_uid
+            return user.session_id
+        except NoResultFound:
+            return None
