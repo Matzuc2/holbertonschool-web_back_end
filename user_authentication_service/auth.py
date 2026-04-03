@@ -46,14 +46,18 @@ class Auth:
             return False
 
     def _generate_uuid(self):
-        id1 = uuid.uuid4()
+        """generates an uuid for user session id
+        """
+        id1 = uuid.uuid1()
         id1_str = str(id1)
         return id1_str
-    
-    def create_sesssion(self, email) -> str:
+
+    def create_session(self, email) -> str:
+        """create a session for an user, using the generated uuid
+        """
         try:
-            user = self._db.find_user_by(email)
-            user_uid = self._generate_uuid
+            user = self._db.find_user_by(email=email)
+            user_uid = self._generate_uuid()
             user.session_id = user_uid
             return user.session_id
         except NoResultFound:
