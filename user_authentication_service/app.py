@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+"""Hello world"""
+
 from flask import Flask, jsonify, request, abort, Response
 from auth import Auth
 

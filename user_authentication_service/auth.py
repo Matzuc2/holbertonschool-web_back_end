@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+"""Hello world"""
+
 import uuid
 import bcrypt
 from user import User
