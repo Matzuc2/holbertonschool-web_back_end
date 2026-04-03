@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Hello world"""
 
-from flask import Flask, jsonify, request, abort, Response
+from flask import Flask, jsonify, request, abort
 from auth import Auth
+from sqlalchemy.exc import NoResultFound
 
 app = Flask(__name__)
 AUTH = Auth()
@@ -37,6 +38,18 @@ def login():
         response = jsonify(data)
         response.set_cookie(key="session_id", value=session_id)
         return response
+
+
+@app.route("/sessions", methods=['DELETE'])
+def logout():
+    session_id = request.cookies.get('session_id')
+    try:
+        user = AUTH._db.find_user_by(session_id=session_id)
+        if user is None:
+            return 403
+        AUTH.destroy_session(user_id=user.id)
+    except NoResultFound:
+        return 403
 
 
 if __name__ == "__main__":
