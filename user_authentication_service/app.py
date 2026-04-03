@@ -44,14 +44,21 @@ def login():
 @app.route("/sessions", methods=['DELETE'])
 def logout():
     session_id = request.cookies.get('session_id')
-    try:
-        user = AUTH._db.find_user_by(session_id=session_id)
-        if user is None:
-            return 403
-        AUTH.destroy_session(user_id=user.id)
-        return redirect('/')
-    except NoResultFound:
+    user = AUTH.get_user_from_session_id(session_id=session_id)
+    if user is None:
         return make_response("", 403)
+    AUTH.destroy_session(user_id=user.id)
+    return redirect('/')
+
+
+@app.route("/profile", methods=['GET'])
+def profile():
+    session_id = request.cookies.get('session_id')
+    user = AUTH.get_user_from_session_id(session_id=session_id)
+    if not user:
+        return make_response("", 403)
+    else:
+        return jsonify({"email": user.email}), 200
 
 
 if __name__ == "__main__":
