@@ -39,9 +39,14 @@ class Auth:
         """Return True when credentials match an existing user."""
         try:
             user = self._db.find_user_by(email=email)
+            if not user:
+                return False
             password_bytes = password.encode('utf-8')
             verif = bcrypt.checkpw(password_bytes, user.hashed_password)
-            return verif
+            if verif is False:
+                return False
+            if verif is True:
+                return True
         except NoResultFound:
             return False
 
