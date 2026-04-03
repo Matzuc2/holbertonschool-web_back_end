@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Hello world"""
 
-from flask import Flask, jsonify, request, abort, redirect
+from flask import Flask, jsonify, request, abort, redirect, make_response
+
 from auth import Auth
 from sqlalchemy.exc import NoResultFound
 
@@ -50,7 +51,7 @@ def logout():
         AUTH.destroy_session(user_id=user.id)
         return redirect('/')
     except NoResultFound:
-        return 403
+        return make_response("", 403)
 
 
 if __name__ == "__main__":
