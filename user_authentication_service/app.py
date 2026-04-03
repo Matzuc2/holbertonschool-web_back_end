@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Hello world"""
 
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify, request, abort, redirect
 from auth import Auth
 from sqlalchemy.exc import NoResultFound
 
@@ -48,6 +48,7 @@ def logout():
         if user is None:
             return 403
         AUTH.destroy_session(user_id=user.id)
+        return redirect('/')
     except NoResultFound:
         return 403
 
