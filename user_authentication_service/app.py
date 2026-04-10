@@ -18,6 +18,7 @@ def hello_world():
 
 @app.route("/users", methods=['GET', 'POST'])
 def register():
+    """register an user user AUTH register method"""
     email = request.form.get('email')
     password = request.form.get("password")
     try:
@@ -29,6 +30,7 @@ def register():
 
 @app.route("/sessions", methods=['POST'])
 def login():
+    """login with AUTH create session method"""
     email = request.form.get('email')
     password = request.form.get("password")
     boolean = AUTH.valid_login(email=email, password=password)
@@ -44,6 +46,7 @@ def login():
 
 @app.route("/sessions", methods=['DELETE'])
 def logout():
+    """logout with AUTH destroy session method"""
     session_id = request.cookies.get('session_id')
     user = AUTH.get_user_from_session_id(session_id=session_id)
     if user is None:
@@ -54,6 +57,7 @@ def logout():
 
 @app.route("/profile", methods=['GET'])
 def profile():
+    """get profile from session id"""
     session_id = request.cookies.get('session_id')
     user = AUTH.get_user_from_session_id(session_id=session_id)
     if not user:
@@ -64,6 +68,7 @@ def profile():
 
 @app.route("/reset_password", methods=['POST'])
 def get_reset_password_token():
+    """get reset password toke via auth method"""
     email = request.form.get('email')
     try:
         user = AUTH._db.find_user_by(email=email)
@@ -75,6 +80,7 @@ def get_reset_password_token():
 
 @app.route("/reset_password", methods=['PUT'])
 def update_password():
+    """update password via AUTH method"""
     email = request.form.get("email")
     password = request.form.get("new_password")
     reset_token = request.form.get("reset_token")
