@@ -29,7 +29,7 @@ class DB:
             self.__session = DBSession()
         return self.__session
 
-    def add_user(self, email: str, hashed_password: bytes) -> User:
+    def add_user(self, email: str, hashed_password: str) -> User:
         """Create and persist a new user from checker that is been."""
         user = User(email=email, hashed_password=hashed_password)
         self._session.add(user)
