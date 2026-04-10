@@ -82,7 +82,7 @@ def update_password():
         AUTH.update_password(reset_token=reset_token, password=password)
         return jsonify({"email": email, "message": "Password updated"}), 200
     except ValueError:
-        return make_response('', 403)
+        return make_response("", 403)
 
 
 if __name__ == "__main__":
