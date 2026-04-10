@@ -99,7 +99,7 @@ class Auth:
         try:
             user = self._db.find_user_by(reset_token=reset_token)
             new_hashed_pwd = _hash_password(password=password)
-            user.hashed_password = str(new_hashed_pwd)
+            user.hashed_password = new_hashed_pwd
             user.reset_token = None
         except NoResultFound:
             raise ValueError
