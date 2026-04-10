@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""hello world"""
+"""User model definition for the authentication service."""
 
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import declarative_base
@@ -8,6 +8,7 @@ Base = declarative_base()
 
 
 class User(Base):
+    """SQLAlchemy model for application users and auth session metadata."""
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
     email = Column(String(250), nullable=False)
