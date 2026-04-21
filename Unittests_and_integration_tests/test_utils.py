@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""Module commented"""
 from utils import access_nested_map, get_json, memoize
 import unittest
 from parameterized import parameterized, parameterized_class
