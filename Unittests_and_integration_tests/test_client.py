@@ -26,6 +26,18 @@ class TestGithubOrgClient(unittest.TestCase):
             public_repo = client._public_repos_url
             self.assertEqual(mock_public_repo.return_value, public_repo)
 
-
+    @patch('client.get_json')
+    def test_public_repos(self, mock_get):
+        """testing combined test at once from above"""
+        mock_get.return_value = {"hello": "world"}
+        with patch('client.GithubOrgClient._public_repos_url', new_callable=PropertyMock) as mock_public_repo:
+            mock_public_repo.return_value = {"repos_url": 'https://api.github.com/orgs/aaa'}
+            client = GithubOrgClient("aaa")
+            mocked_org = client.org
+            public_repo = client._public_repos_url
+            self.assertEqual(mock_public_repo.return_value, public_repo )
+            self.assertEqual(mock_get.return_value, mocked_org)
+            mock_get.assert_called_once()
+            mock_public_repo.assert_called_once()
 
         
