@@ -3,7 +3,7 @@ from utils import access_nested_map, get_json, memoize
 from client import GithubOrgClient
 import unittest
 from parameterized import parameterized, parameterized_class
-from unittest.mock import patch, Mock
+from unittest.mock import patch, Mock, PropertyMock
 class TestGithubOrgClient(unittest.TestCase):
     @parameterized.expand([
         ("google",),
@@ -17,6 +17,15 @@ class TestGithubOrgClient(unittest.TestCase):
         mocked_org = client.org #here, it became a callable obj
         mock_get.assert_called_once_with(client.ORG_URL.format(org=org_name))
         self.assertEqual(mocked_org, mock_get.return_value)
+
+    def test_public_repos_url(self):
+        """test to mock a property directly from a class"""
+        with patch('client.GithubOrgClient._public_repos_url', new_callable=PropertyMock) as mock_public_repo:
+            mock_public_repo.return_value = {"repos_url": "https://api.github.com/orgs/aaa"}
+            client = GithubOrgClient("aaa")
+            public_repo = client._public_repos_url
+            self.assertEqual(mock_public_repo.return_value, public_repo)
+
 
 
         
