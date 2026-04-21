@@ -11,10 +11,10 @@ class TestGithubOrgClient(unittest.TestCase):
     ])
     @patch('client.get_json')
     def test_org(self, org_name, mock_get):
-        """testing mock on get_json"""
+        """testing mock on get_json, with memoized"""
         mock_get.return_value = Mock()
         client = GithubOrgClient(org_name)
-        mocked_org = client.org
+        mocked_org = client.org #here, it became a callable obj
         mock_get.assert_called_once_with(client.ORG_URL.format(org=org_name))
         self.assertEqual(mocked_org, mock_get.return_value)
 
