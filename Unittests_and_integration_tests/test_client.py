@@ -55,3 +55,14 @@ class TestGithubOrgClient(unittest.TestCase):
             self.assertEqual(mock_get.return_value, mocked_org)
             mock_get.assert_called_once()
             mock_public_repo.assert_called_once()
+
+    @parameterized.expand([
+        ({"license": {"key": "my_license"}}, "my_license", True),
+        ({"license": {"key": "my_license"}}, "other_licence", False)
+    ])
+    def test_has_license(self, repository, licence_key, expected):
+        """test to see if licence key function is greatly brought out"""
+        client = GithubOrgClient("aaa")
+        boolean = client.has_license(repository, licence_key)
+        self.assertEqual(boolean, expected)
+
