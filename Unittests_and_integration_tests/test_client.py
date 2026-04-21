@@ -66,3 +66,30 @@ class TestGithubOrgClient(unittest.TestCase):
         boolean = client.has_license(repository, licence_key)
         self.assertEqual(boolean, expected)
 
+from fixtures import TEST_PAYLOAD
+@parameterized_class(
+    ("org_payload", "repos_payload", "expected_repos", "apache2_repos"),
+    TEST_PAYLOAD
+)
+class TestIntegrationGithubOrgClient(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.get_patcher = patch("requests.get")
+
+        def side_effect(url):
+            payloads = {
+                "https://api.github.com/orgs/google": cls.org_payload,
+                "https://api.github.com/orgs/google/repos": cls.repos_payload,
+            }
+            if url not in payloads:
+                raise ValueError("Unexpected URL: {}".format(url))
+            response = Mock()
+            response.json.return_value = payloads[url]
+            return response
+
+        mock_get = cls.get_patcher.start()
+        mock_get.side_effect = side_effect
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.get_patcher.stop()
