@@ -14,22 +14,30 @@ class Config():
 
 
 def get_locale():
-    """get locale language from config dick"""
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
+    """get locale language from url, or default"""
+    locale = request.args.get('locale')
+    if locale:
+        if locale in app.config['LANGUAGES']:
+            return locale
+        else:
+            return request.accept_languages.best_match(app.config['LANGUAGES'])
+    else:
+        return request.accept_languages.best_match(app.config['LANGUAGES'])
 
+
+_("home_title")
+_("home_header")
 
 app = Flask(__name__)
 babel = Babel(app)
 app.config.from_object(Config)
 babel.init_app(app, locale_selector=get_locale)
-_("home_title")
-_("home_header")
 
 
 @app.route('/')
 def index():
     """return basic html template"""
-    return render_template('1-index.html')
+    return render_template('4-index.html')
 
 
 if __name__ == "__main__":
