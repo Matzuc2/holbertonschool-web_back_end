@@ -14,10 +14,9 @@ class Config():
 
 app = Flask(__name__)
 babel = Babel(
-    app,
-    locale_selector=Config.BABEL_DEFAULT_LOCALE,
-    timezone_selector=Config.BABEL_DEFAULT_TIMEZONE
+    app
     )
+app.config.from_object(Config)
 
 
 if __name__ == "__main__":
