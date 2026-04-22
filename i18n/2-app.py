@@ -14,6 +14,7 @@ class Config():
 
 
 def get_locale():
+    """get locale language from config dick"""
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
