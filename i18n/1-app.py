@@ -2,7 +2,7 @@
 """Basic flask app"""
 
 
-from flask import Flask
+from flask import Flask, render_template
 from flask_babel import Babel
 
 
@@ -18,6 +18,12 @@ babel = Babel(
     app
     )
 app.config.from_object(Config)
+
+
+@app.route('/')
+def index():
+    """return basic html template"""
+    return render_template('1-index.html')
 
 
 if __name__ == "__main__":
