@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
+"""Basic flask app"""
+
+
 from flask import Flask, render_template, request, g
 from flask_babel import Babel, gettext
-"""Basic flask app"""
-"""_ is a function from flask_babel"""
 
 
 def _(message):
