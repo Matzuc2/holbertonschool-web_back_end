@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
+from flask import Flask, render_template, request, g
+from flask_babel import Babel, gettext
 """Basic flask app"""
 """_ is a function from flask_babel"""
 
 
+def _(message):
+    """Translate a message id using Flask-Babel gettext."""
+    return gettext(message)
 
-from flask import Flask, render_template, request, g
-from flask_babel import Babel, gettext as _
 
 users = {
     1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
