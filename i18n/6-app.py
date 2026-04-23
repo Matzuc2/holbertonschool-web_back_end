@@ -28,8 +28,15 @@ def get_locale():
             return locale
         else:
             return request.accept_languages.best_match(app.config['LANGUAGES'])
-    else:
-        return request.accept_languages.best_match(app.config['LANGUAGES'])
+    user = g.user
+    if user:
+        locale = user.get("locale")
+        if locale:
+            print(locale)
+            return locale
+        else:
+            return request.accept_languages.best_match(app.config['LANGUAGES'])
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 def get_user():
@@ -73,7 +80,6 @@ def index():
         return render_template('5-index.html', user=g.user)
     else:
         return render_template('5-index.html')
-
 
 
 if __name__ == "__main__":
