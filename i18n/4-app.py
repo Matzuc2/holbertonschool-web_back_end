@@ -25,9 +25,6 @@ def get_locale():
         return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
-_("home_title")
-_("home_header")
-
 app = Flask(__name__)
 babel = Babel(app)
 app.config.from_object(Config)
