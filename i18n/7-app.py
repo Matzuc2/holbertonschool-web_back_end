@@ -21,23 +21,23 @@ class Config():
     BABEL_DEFAULT_TIMEZONE = 'UTC'
 
 
-def get_timezone():
-    '''get locale timezone'''
-    timezone_locale = request.args.get('timezone')
-    user = g.user
-    if timezone_locale:
-        try:
-            timezone(timezone_locale)
-            return timezone_locale
-        except UnknownTimeZoneError:
-            if user:
-                timezone_user = user.get('timezone')
-                if timezone_user:
-                    try:
-                        timezone(timezone_user)
-                        return timezone_user
-                    except UnknownTimeZoneError:
-                        return app.config['BABEL_DEFAULT_TIMEZONE']
+def get_user():
+    """get user from url by its id or none"""
+    id_user = request.args.get('login_as')
+    if id_user:
+        user = users.get(int(id_user))
+        if user:
+            return user
+        else:
+            return None
+    else:
+        return None
+
+
+_("home_title")
+_("home_header")
+_("logged_in_as")
+_("not_logged_in")
 
 
 def get_locale():
@@ -59,29 +59,29 @@ def get_locale():
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
-def get_user():
-    """get user from url by its id or none"""
-    id_user = request.args.get('login_as')
-    if id_user:
-        user = users.get(int(id_user))
-        if user:
-            return user
-        else:
-            return None
-    else:
-        return None
-
-
-_("home_title")
-_("home_header")
-_("logged_in_as")
-_("not_logged_in")
+def get_timezone():
+    '''get locale timezone'''
+    timezone_locale = request.args.get('timezone')
+    user = g.user
+    if timezone_locale:
+        try:
+            timezone(timezone_locale)
+            return timezone_locale
+        except UnknownTimeZoneError:
+            pass
+    if user and user.get('timezone'):
+        try:
+            timezone(user['timezone'])
+            return user['timezone']
+        except UnknownTimeZoneError:
+            pass
+    return app.config['BABEL_DEFAULT_TIMEZONE']
 
 
 app = Flask(__name__)
 babel = Babel(app)
 app.config.from_object(Config)
-babel.init_app(app, locale_selector=get_locale)
+babel.init_app(app, locale_selector=get_locale, timezone_selector=get_timezone)
 
 
 @app.before_request
