@@ -5,6 +5,7 @@
 from flask import Flask, render_template, request, g
 from flask_babel import Babel, gettext
 
+"""gettext is a function"""
 
 def _(message):
     """Translate a message id using Flask-Babel gettext."""
