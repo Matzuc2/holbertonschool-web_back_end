@@ -3,7 +3,7 @@
 
 
 from flask import Flask, render_template, request, g
-from flask_babel import Babel, gettext as _
+from flask_babel import Babel
 
 users = {
     1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
@@ -45,12 +45,6 @@ def get_user():
         return None
 
 
-_("home_title")
-_("home_header")
-_("logged_in_as")
-_("not_logged_in")
-
-
 app = Flask(__name__)
 babel = Babel(app)
 app.config.from_object(Config)
@@ -73,7 +67,6 @@ def index():
         return render_template('5-index.html', user=g.user)
     else:
         return render_template('5-index.html')
-
 
 
 if __name__ == "__main__":
