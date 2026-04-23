@@ -3,13 +3,19 @@
 
 
 from flask import Flask, render_template, request, g
-from flask_babel import Babel, gettext
+from flask_babel import Babel, _
 
-"""gettext is a function"""
 
-def _(message):
-    """Translate a message id using Flask-Babel gettext."""
-    return gettext(message)
+"""
+_ is a function from flask_babel
+
+translates message id through different languages.
+
+args: msgid
+
+returns: string translated
+"""
+
 
 
 users = {
