@@ -21,7 +21,7 @@ msgstr ""
 #: 3-app.py:25 4-app.py:28 5-app.py:46 templates/3-index.html:4
 #: templates/4-index.html:4 templates/5-index.html:4
 msgid "home_title"
-msgstr "Welcome Holberton"
+msgstr "Welcome to Holberton"
 
 #: 3-app.py:26 4-app.py:29 5-app.py:47 templates/3-index.html:7
 #: templates/4-index.html:7 templates/5-index.html:7

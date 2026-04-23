@@ -3,7 +3,7 @@
 
 
 from flask import Flask, render_template, request
-from flask_babel import Babel
+from flask_babel import Babel, gettext as _
 
 
 class Config():
@@ -24,6 +24,9 @@ def get_locale():
     else:
         return request.accept_languages.best_match(app.config['LANGUAGES'])
 
+
+_("home_title")
+_("home_header")
 
 app = Flask(__name__)
 babel = Babel(app)
