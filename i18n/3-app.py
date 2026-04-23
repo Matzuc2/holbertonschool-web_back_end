@@ -3,7 +3,7 @@
 
 
 from flask import Flask, render_template, request
-from flask_babel import Babel, gettext as _
+from flask_babel import Babel
 
 
 class Config():
@@ -22,8 +22,6 @@ app = Flask(__name__)
 babel = Babel(app)
 app.config.from_object(Config)
 babel.init_app(app, locale_selector=get_locale)
-_("home_title")
-_("home_header")
 
 
 @app.route('/')
