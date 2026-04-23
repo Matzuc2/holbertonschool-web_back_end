@@ -12,6 +12,7 @@ users = {
     4: {"name": "Teletubby", "locale": None, "timezone": "Europe/London"},
 }
 
+
 class Config():
     """Config class with class variables for i18n"""
     LANGUAGES = ["en", "fr"]
@@ -30,12 +31,13 @@ def get_locale():
     else:
         return request.accept_languages.best_match(app.config['LANGUAGES'])
 
+
 def get_user():
     """get user from url by its id or none"""
     id_user = request.args.get('login_as')
     if id_user:
         user = users.get(int(id_user))
-        if user: 
+        if user:
             return user
         else:
             return None
@@ -48,10 +50,12 @@ _("home_header")
 _("logged_in_as")
 _("not_logged_in")
 
+
 app = Flask(__name__)
 babel = Babel(app)
 app.config.from_object(Config)
 babel.init_app(app, locale_selector=get_locale)
+
 
 @app.before_request
 def before_request():
@@ -66,10 +70,9 @@ def before_request():
 def index():
     """return basic html template"""
     if g.user:
-        return render_template('5-index.html',user=g.user)
+        return render_template('5-index.html', user=g.user)
     else:
         return render_template('5-index.html')
-
 
 
 if __name__ == "__main__":
