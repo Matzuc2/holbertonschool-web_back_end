@@ -3,7 +3,7 @@
 
 
 from flask import Flask, render_template, request, g
-from flask_babel import Babel, _
+from flask_babel import Babel
 
 
 """
@@ -62,12 +62,6 @@ def get_user():
             return None
     else:
         return None
-
-
-_("home_title")
-_("home_header")
-_("logged_in_as")
-_("not_logged_in")
 
 
 app = Flask(__name__)
