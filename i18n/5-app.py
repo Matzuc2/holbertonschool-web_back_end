@@ -53,6 +53,7 @@ babel.init_app(app, locale_selector=get_locale)
 
 @app.before_request
 def before_request():
+    """associate user before each request"""
     user = get_user()
     if user:
         g.user = user
