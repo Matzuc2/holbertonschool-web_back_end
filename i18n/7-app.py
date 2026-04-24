@@ -52,7 +52,7 @@ def get_locale():
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
-def get_timezone():
+def get_timezone() -> str:
     '''get locale timezone'''
     timezone_locale = request.args.get('timezone')
     user = g.user
