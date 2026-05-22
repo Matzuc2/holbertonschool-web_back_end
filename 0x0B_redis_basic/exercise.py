@@ -15,7 +15,7 @@ class Cache:
         return key
 
     def get(self, key, fn=None) -> str:
-        value = self._redis.get(key, None)
+        value = self._redis.get(key)
         if fn is int:
             converted_value = self.get_int(value)
         elif fn is str:
