@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from typing import Union
+from typing import Union, Optional, Callable, Any
 import redis
 import uuid
 
@@ -14,20 +14,16 @@ class Cache:
         self._redis.set(key, data)
         return key
 
-    def get(self, key, fn=None) -> str:
+    def get(self, key: str, fn: Optional[Callable] = None) -> Any:
         value = self._redis.get(key)
-        if fn is int:
-            converted_value = self.get_int(key)
-        elif fn is str:
-            converted_value = self.get_str(key)
-        elif fn is None:
-            converted_value = None
-        else:
-            converted_value = fn(key)
-        return converted_value
+        if value is None:
+            return None
+        if fn:
+            return fn(value)
+        return value
 
-    def get_str(self, key: str) -> str:
-        return str(self._redis.get(key))
+    def get_str(self, key: str) -> Optional[str]:
+        return self.get(key).decode()
 
-    def get_int(self, key: str) -> str:
-        return int(self._redis.get(key))
+    def get_int(self, key: str) -> Optional[int]:
+        return self.get(key).decode()
