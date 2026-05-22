@@ -20,8 +20,10 @@ class Cache:
             converted_value = self.get_int(key)
         elif fn is str:
             converted_value = self.get_str(key)
-        else:
+        elif fn is None:
             converted_value = None
+        else:
+            converted_value = fn(key)
         return converted_value
 
     def get_str(self, key: str) -> str:
