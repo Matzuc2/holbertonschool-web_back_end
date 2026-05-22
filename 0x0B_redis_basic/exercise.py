@@ -10,5 +10,5 @@ class Cache():
 
     def store(self, data: str | bytes | int | float) -> str:
         key = str(uuid.uuid1())
-        self._redis.set(key, 'Alice')
+        self._redis.set(key, data)
         return key
