@@ -4,6 +4,7 @@ from typing import Union, Optional, Callable, Any
 import redis
 import uuid
 
+
 def count_calls(method: Callable) -> Callable:
     key = method.__qualname__
 
@@ -13,6 +14,7 @@ def count_calls(method: Callable) -> Callable:
         return method(self, *args, **kwargs)
 
     return wrapper
+
 
 class Cache:
     def __init__(self):
