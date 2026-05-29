@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+"""Module is documented"""
+
 from functools import wraps
 from typing import Union, Optional, Callable, Any
 import redis
@@ -42,6 +44,7 @@ def count_calls(method: Callable) -> Callable:
         return method(self, *args, **kwargs)
 
     return wrapper
+
 
 class Cache:
     def __init__(self):
