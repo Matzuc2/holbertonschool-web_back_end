@@ -5,6 +5,20 @@ import redis
 import uuid
 
 
+def call_history(method: Callable) -> Callable:
+    key = method.__qualname__
+    key_output_list = key + ":outputs"
+    key_input_list = key + ":inputs"
+
+    @wraps(method)
+    def wrapper(self, *args, **kwargs):
+        self._redis.rpush(key_input_list, str(*args))
+        output = method(self, *args, **kwargs)
+        self._redis.rpush(key_output_list, output)
+        return output
+    return wrapper
+
+
 def count_calls(method: Callable) -> Callable:
     key = method.__qualname__
 
@@ -21,6 +35,7 @@ class Cache:
         self._redis = redis.Redis()
         self._redis.flushdb()
 
+    @call_history
     @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         key = str(uuid.uuid4())
