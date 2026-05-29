@@ -1,4 +1,4 @@
---This is a script to create a basic user table in any db--
+-- Create table users in any db
 CREATE TABLE IF NOT EXISTS users(
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     email VARCHAR(255) UNIQUE NOT NULL,
