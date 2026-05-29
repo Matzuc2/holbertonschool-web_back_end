@@ -43,7 +43,6 @@ def count_calls(method: Callable) -> Callable:
 
     return wrapper
 
-
 class Cache:
     def __init__(self):
         self._redis = redis.Redis()
