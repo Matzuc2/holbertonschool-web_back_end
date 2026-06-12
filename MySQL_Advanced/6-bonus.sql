@@ -1,7 +1,6 @@
 DELIMITER $$
 -- procedure :)
 CREATE PROCEDURE AddBonus(IN user_id INT, IN project_name VARCHAR(255), IN score INT)
-AS
 BEGIN
     IF NOT EXISTS(
     SELECT 1
