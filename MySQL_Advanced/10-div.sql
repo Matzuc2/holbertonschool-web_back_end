@@ -1,14 +1,14 @@
 DELIMITER $$
--- function :)
+
 CREATE FUNCTION SafeDiv (a INT, b INT)
-RETURNS INT
+RETURNS FLOAT
 DETERMINISTIC
 BEGIN
-   IF b = 0 THEN
-      RETURN 0;
-   END IF;
+    IF b = 0 THEN
+    RETURN 0;
+    END IF;
 
-   RETURN a / b;
+    RETURN a / b;
 END$$
 
 DELIMITER ;
