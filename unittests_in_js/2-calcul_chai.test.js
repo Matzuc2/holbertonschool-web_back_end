@@ -1,7 +1,7 @@
 const { expect } = require("chai");
 const calculateNumber = require("./1-calcul.js");
 
-describe("when type is SUM", function () {
+describe("type=SUM", function () {
     it("round two number and add them up", function () {
         expect(calculateNumber("SUM", 2.7, 5)).to.equal(8);
     });
@@ -23,7 +23,7 @@ describe("when type is SUM", function () {
     });
 });
 
-describe("when type is SUBTRACT", function () {
+describe("type=SUBTRACT", function () {
     it("should subtract two rounded numbers", function () {
         expect(calculateNumber("SUBTRACT", 5.7, 2.4)).to.equal(4);
     });
@@ -33,7 +33,7 @@ describe("when type is SUBTRACT", function () {
     });
 });
 
-describe("when type is DIVIDE", function () {
+describe("type=DIVIDE", function () {
     it("should divide two rounded numbers", function () {
         expect(calculateNumber("DIVIDE", 5.7, 2.4)).to.equal(3);
     });
