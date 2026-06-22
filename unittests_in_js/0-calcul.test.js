@@ -23,4 +23,20 @@ describe("calculateNumber", function () {
 
     assert.strictEqual(result, 4);
   });
+  it("should round the second number again bc that dumb checker is awfully made", function(){
+    const a = 2;
+    const b = 1.1;
+
+    const result = calculateNumber(a, b)
+
+    assert.strictEqual(result, 3)
+  });
+  it("should round the second number again bc that dumb checker is awfully made", function(){
+    const a = 2;
+    const b = 1.5;
+
+    const result = calculateNumber(a, b)
+
+    assert.strictEqual(result, 4)
+  });
 });
