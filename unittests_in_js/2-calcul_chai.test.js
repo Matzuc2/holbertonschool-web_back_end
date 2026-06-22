@@ -14,11 +14,11 @@ describe("type=SUM", function () {
         expect(calculateNumber("SUM", 2, 1.8)).to.equal(4);
     });
 
-    it("should round the second number again bc that dumb checker is awfully made", function () {
+    it("should round the second number again bc", function () {
         expect(calculateNumber("SUM", 2, 1.1)).to.equal(3);
     });
 
-    it("should round the second number again bc that dumb checker is awfully made", function () {
+    it("should round the second number again", function () {
         expect(calculateNumber("SUM", 2, 1.5)).to.equal(4);
     });
 });
