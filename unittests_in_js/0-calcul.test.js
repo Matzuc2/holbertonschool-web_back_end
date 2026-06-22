@@ -16,4 +16,9 @@ describe("calculateNumber", function () {
 
     assert.strictEqual(result, 4);
   });
+  it("should round the second number", function () {
+    const result = calculateNumber(1, 3.7);
+
+  assert.strictEqual(result, 5);
+  });
 });
