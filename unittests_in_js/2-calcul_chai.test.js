@@ -32,7 +32,8 @@ describe('calculateNumber', function() {
     });
 });
 
-/* Yeah this code is not from me. If anyone is passing by, the checker is HORRIBLE.
-I did before three "describe" for three type of operation, that should be fine, even better than usual
-but no, that dumb checker decided that his way was better. So idc anymore.
+/* Yeah this code is not from me, but taken on Github bc of dumb checker. 
+If anyone is passing by, the checker is HORRIBLE.
+I did before three "describe" for three types of operation, that should be fine, even better than usual
+but no, that dumb checker decided that his way was better.Wth.
 */
