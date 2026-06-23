@@ -10,7 +10,6 @@ describe('sendPaymentRequestToApi', function() {
 
     sendPaymentRequestToApi(100, 20);
     assert(spy.calledWith('SUM', 100, 20));
-    
     spy.restore();
   });
 });
