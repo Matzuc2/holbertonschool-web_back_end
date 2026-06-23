@@ -15,12 +15,12 @@ describe('sendPaymentRequestToApi', function() {
     it('should call sendRequestToAPI with 100, 20', function() {
         sendPaymentRequestToApi(100, 20);
         assert(spy.calledWith('The total is: 120'));
-        assert(spy.calledOnce())
+        assert(spy.calledOnce)
     });
-    it('should call sendRequestToAPI with 10, 10', function() {
+    it('should call sendRequestToAPI with 10, 20', function() {
         sendPaymentRequestToApi(10, 10);
         assert(spy.calledWith('The total is: 20'));
-        assert(spy.calledOnce())
+        assert(spy.calledOnce)
     });
     afterEach(() => {
         spy.restore();
